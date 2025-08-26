@@ -1,0 +1,59 @@
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-08-22
+<class 'datetime.date'>
+
+NO ES NECESARIO ACTUALIZAR la Base de datos de Euromillones
+
+Fecha último sorteo guardado en base de datos de primitiva; 2025-08-23
+
+<class 'datetime.date'>
+
+NO ES NECESARIO ACTUALIZAR la Base de datos de Primitiva
+
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  36  39  48          1
+  2  15  21  29  37  49          2
+  3  14  17  26  38  46          7
+  4  10  22  31  42  47          5
+  5  11  23  30  41  45          4
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  36  39  48          1
+  2  15  21  29  37  49          2
+  3  14  17  26  38  46          7
+  4  10  22  31  42  47          5
+  5  11  23  30  41  45          4
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  1   7  26  38  50   2   8
+  6   9  27  39  49   1  11
+  2  11  30  40  48   3  10
+  5  19  31  44  45   4   9
+  3  10  23  45  46   5   7
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  36  39  48          1
+  2  15  21  29  37  49
+  3  14  17  26  38  46
+  4  10  22  31  42  47
+  5  11  23  30  41  45
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  1   7  26  38  50   2   8
+  6   9  27  39  49   1  11
+  2  11  30  40  48   3  10
+  5  19  31  44  45   4   9
+  3  10  23  45  46   5   7
+
+Process finished with exit code 0
