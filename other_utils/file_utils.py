@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
-from datetime import datetime, date
+from datetime import datetime, timedelta
+from typing import Union
 from constants import DBFILE, PRIMITIVA, PRIMIFIELDS, EUROMILLONES, EUROFIELDS
 from pathlib import Path
 from db_utils.db_management import DBManager
@@ -31,7 +32,7 @@ def check_results_db_file() -> Path | None:
         return None
 
 
-def get_latest_results_in_db(sorteo) -> date | int:
+def get_latest_results_in_db(sorteo) -> Union[datetime.date, int]:
     """
     Devuelve la fecha del último sorteo almacenado en la base de datos de primi o euro
     :param sorteo: tipo de sorteo, euromillones o primitiva
@@ -152,30 +153,44 @@ def need_db_update(sorteo: str) -> bool:
     :param sorteo: Primitiva o Euromillones
     :return: True si hay que actualizar y False en caso contrario
     """
-    este_anno, esta_semana, este_dia = datetime.now().isocalendar()  # devuelve año, número de semana y
-    # día semana (1 a 7)
+    #este_anno, esta_semana, este_dia = datetime.now().isocalendar()  # devuelve año, número de semana y
+    # día semana (1 a 7)  BORRAR CUANDO COMPRUEBE LAS LÍNEAS SIGUIENTES
+
+    # Expreso el número de semana considerando también el año para que, por ejemplo, la semana 1 de 2026 sea mayor
+    # que la semana 54 de 2025. Ejemplo, semana 2532 es la semana 32 de 2025
+    hoy = datetime.now()
+    this_week = hoy.isocalendar().year % 100 * 100 + hoy.isocalendar().week
+    last_week_date = hoy - timedelta(days=7)
+    last_week = last_week_date.isocalendar().year % 100 * 100 + last_week_date.isocalendar().week
+    este_dia = hoy.isoweekday()
+
     if sorteo == PRIMITIVA:
         fecha_ultimo_sorteo_primi_guardado = get_latest_results_in_db(PRIMITIVA)
-        num_semana_ultima_primi = fecha_ultimo_sorteo_primi_guardado.isocalendar()[1]
+        # num_semana_ultima_primi = fecha_ultimo_sorteo_primi_guardado.isocalendar()[1]
+        num_semana_ultima_primi = (fecha_ultimo_sorteo_primi_guardado.year % 100 * 100 +
+                                   fecha_ultimo_sorteo_primi_guardado.isocalendar().week)
         dia_semana_ultima_primi = fecha_ultimo_sorteo_primi_guardado.isoweekday()
         print(f"Fecha último sorteo guardado en base de datos de primitiva; "
               f"{fecha_ultimo_sorteo_primi_guardado}\n\n{type(fecha_ultimo_sorteo_primi_guardado)}")
-        if num_semana_ultima_primi < esta_semana - 1 or \
-                num_semana_ultima_primi < esta_semana and dia_semana_ultima_primi < 6 or \
-                num_semana_ultima_primi == esta_semana and dia_semana_ultima_primi < 6 and este_dia == 7:
+        if num_semana_ultima_primi < last_week or \
+                num_semana_ultima_primi < this_week and dia_semana_ultima_primi < 6 or \
+                num_semana_ultima_primi == this_week and dia_semana_ultima_primi < 6 and este_dia == 7:
             # La primitiva se actualiza siempre que la última guardada sea de hace más de 2 semanas o
             # si la última guardada es anterior al sábado de la semana anterior o
             # si la última guardada es de la semana anterior y el día actual es domingo.
             return True
     if sorteo == EUROMILLONES:
         fecha_ultimo_sorteo_euro_guardado = get_latest_results_in_db(EUROMILLONES)
-        num_semana_ultima_euro = fecha_ultimo_sorteo_euro_guardado.isocalendar()[1]
+        # num_semana_ultima_euro = fecha_ultimo_sorteo_euro_guardado.isocalendar()[1]
+        num_semana_ultima_euro = (fecha_ultimo_sorteo_euro_guardado.year % 100 * 100 +
+                                  fecha_ultimo_sorteo_euro_guardado.isocalendar().week)
+
         dia_semana_ultima_euro = fecha_ultimo_sorteo_euro_guardado.isoweekday()
         print(f"Fecha último sorteo guardado en base de datos de euromillones: "
               f"{fecha_ultimo_sorteo_euro_guardado}\n{type(fecha_ultimo_sorteo_euro_guardado)}")
-        if num_semana_ultima_euro < esta_semana - 1 or \
-                num_semana_ultima_euro < esta_semana and dia_semana_ultima_euro < 5 or \
-                num_semana_ultima_euro == esta_semana and dia_semana_ultima_euro < 5 and este_dia == 7:
+        if num_semana_ultima_euro < last_week or \
+                num_semana_ultima_euro < this_week and dia_semana_ultima_euro < 5 or \
+                num_semana_ultima_euro == this_week and dia_semana_ultima_euro < 5 and este_dia == 7:
             # Euromillones se actualiza siempre que la última guardada sea de hace más de 2 semanas o
             # si la última guardada es anterior al viernes de la semana anterior o
             # si la última guardada es de la semana anterior y el día actual es domingo.
@@ -190,7 +205,7 @@ def actualizacion_db(sorteo: str) -> bool | None:
     :return: True si la actualización es correcta y False en caso contrario
     """
     if sorteo == EUROMILLONES:
-        print(f"\naCTUALIZANDO Base de datos de Euromillones")
+        print(f"\nACTUALIZANDO Base de datos de Euromillones")
         fecha_ultimo_sorteo_euro_guardado = get_latest_results_in_db(EUROMILLONES)
         ultimos_resultados_euromillon = getEuroLatestResults()
         # print(ultimos_resultados_euromillon)
@@ -199,7 +214,7 @@ def actualizacion_db(sorteo: str) -> bool | None:
         # print(euro_comb_faltantes_en_db)
         return inserta_resultados_sorteos_en_db(euro_comb_faltantes_en_db)
     if sorteo == PRIMITIVA:
-        print(f"\naCTUALIZANDO Base de datos de Primitiva")
+        print(f"\nACTUALIZANDO Base de datos de Primitiva")
         fecha_ultimo_sorteo_primi_guardado = get_latest_results_in_db(PRIMITIVA)
         ultimos_resultados_primitiva = getPrimiLatestResults()
         # print(ultimos_resultados_primitiva)

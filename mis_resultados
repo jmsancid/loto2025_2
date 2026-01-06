@@ -57,3 +57,1147 @@ RESULTADOS CALCULADOS PARA EL VIERNES
   3  10  23  45  46   5   7
 
 Process finished with exit code 0
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-08-22
+<class 'datetime.date'>
+
+NO ES NECESARIO ACTUALIZAR la Base de datos de Euromillones
+
+Fecha último sorteo guardado en base de datos de primitiva; 2025-08-23
+
+<class 'datetime.date'>
+
+NO ES NECESARIO ACTUALIZAR la Base de datos de Primitiva
+
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  36  39  48          1
+  2  15  21  29  37  49          2
+  3  14  17  26  38  46          7
+  4  10  22  31  42  47          5
+  5  11  23  30  41  45          4
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  36  39  48          1
+  2  15  21  29  37  49          2
+  3  14  17  26  38  46          7
+  4  10  22  31  42  47          5
+  5  11  23  30  41  45          4
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  36  39  48          1
+  2  15  21  29  37  49          2
+  3  14  17  26  38  46          7
+  4  10  22  31  42  47          5
+  5  11  23  30  41  45          4
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  1   7  26  38  50   2   8
+  6   9  27  39  49   1  11
+  2  11  30  40  48   3  10
+  5  19  31  44  45   4   9
+  3  10  23  45  46   5   7
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  1   7  26  38  50   2   8
+  6   9  27  39  49   1  11
+  2  11  30  40  48   3  10
+  5  19  31  44  45   4   9
+  3  10  23  45  46   5   7
+
+Process finished with exit code 0
+
+========================================================================
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-08-22
+<class 'datetime.date'>
+
+aCTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 9, 9), 'n1': 3, 'n2': 13, 'n3': 24, 'n4': 39, 'n5': 40, 'e1': 2, 'e2': 8}
+{'fecha': datetime.date(2025, 9, 5), 'n1': 27, 'n2': 30, 'n3': 31, 'n4': 41, 'n5': 43, 'e1': 5, 'e2': 8}
+{'fecha': datetime.date(2025, 9, 2), 'n1': 13, 'n2': 30, 'n3': 31, 'n4': 32, 'n5': 36, 'e1': 1, 'e2': 12}
+{'fecha': datetime.date(2025, 8, 29), 'n1': 6, 'n2': 9, 'n3': 10, 'n4': 13, 'n5': 37, 'e1': 1, 'e2': 7}
+{'fecha': datetime.date(2025, 8, 26), 'n1': 2, 'n2': 14, 'n3': 38, 'n4': 42, 'n5': 45, 'e1': 10, 'e2': 11}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-08-23
+
+<class 'datetime.date'>
+
+aCTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 9, 11), 'n1': 19, 'n2': 23, 'n3': 32, 'n4': 35, 'n5': 36, 'n6': 45, 'compl': 43, 're': 9}
+{'fecha': datetime.date(2025, 9, 8), 'n1': 2, 'n2': 7, 'n3': 9, 'n4': 26, 'n5': 36, 'n6': 46, 'compl': 18, 're': 3}
+{'fecha': datetime.date(2025, 9, 6), 'n1': 9, 'n2': 12, 'n3': 19, 'n4': 22, 'n5': 29, 'n6': 40, 'compl': 44, 're': 4}
+{'fecha': datetime.date(2025, 9, 4), 'n1': 8, 'n2': 9, 'n3': 17, 'n4': 28, 'n5': 41, 'n6': 46, 'compl': 44, 're': 8}
+{'fecha': datetime.date(2025, 9, 1), 'n1': 8, 'n2': 9, 'n3': 15, 'n4': 29, 'n5': 39, 'n6': 46, 'compl': 24, 're': 2}
+{'fecha': datetime.date(2025, 8, 30), 'n1': 6, 'n2': 28, 'n3': 36, 'n4': 40, 'n5': 41, 'n6': 48, 'compl': 39, 're': 8}
+{'fecha': datetime.date(2025, 8, 28), 'n1': 2, 'n2': 11, 'n3': 12, 'n4': 19, 'n5': 38, 'n6': 45, 'compl': 21, 're': 5}
+{'fecha': datetime.date(2025, 8, 25), 'n1': 6, 'n2': 7, 'n3': 16, 'n4': 26, 'n5': 39, 'n6': 49, 'compl': 17, 're': 9}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  13  32  45  43          7
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  13  32  45  43          7
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  13  32  45  43          7
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  4  17  24  36  50   2   9
+  1  16  21  39  49   3   8
+  2  15  25  40  48   1  10
+  3  20  29  35  42   5   7
+  5  14  26  38  44   4  11
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  3  20  29  35  42   5   7
+  5  14  26  38  44   4  11
+  4  17  24  36  50   2   9
+  1  16  21  39  49   3   8
+  2  15  25  40  48   1  10
+
+Process finished with exit code 0
+
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-09-12
+<class 'datetime.date'>
+
+NO ES NECESARIO ACTUALIZAR la Base de datos de Euromillones
+
+Fecha último sorteo guardado en base de datos de primitiva; 2025-09-13
+
+<class 'datetime.date'>
+
+NO ES NECESARIO ACTUALIZAR la Base de datos de Primitiva
+
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  23  31  44  48          3
+  3   9  15  23  38  47          5
+  5  15  16  28  36  46          1
+  4   6  25  29  35  45          9
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  23  31  44  48          3
+  3   9  15  23  38  47          5
+  5  15  16  28  36  46          1
+  4   6  25  29  35  45          9
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  23  31  44  48          3
+  3   9  15  23  38  47          5
+  5  15  16  28  36  46          1
+  4   6  25  29  35  45          9
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  21  35  50   2   9
+  1  16  26  38  49   3  11
+  3  20  28  42  48   1   8
+  4  15  24  32  45   4   6
+  5  23  25  37  46   5  10
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  21  35  50   2   9
+  1  16  26  38  49   3  11
+  3  20  28  42  48   1   8
+  4  15  24  32  45   4   6
+  5  23  25  37  46   5  10
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-09-12
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 9, 19), 'n1': 8, 'n2': 10, 'n3': 26, 'n4': 32, 'n5': 42, 'e1': 9, 'e2': 12}
+{'fecha': datetime.date(2025, 9, 16), 'n1': 1, 'n2': 9, 'n3': 13, 'n4': 35, 'n5': 40, 'e1': 5, 'e2': 6}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-09-13
+
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 9, 20), 'n1': 20, 'n2': 32, 'n3': 34, 'n4': 35, 'n5': 38, 'n6': 39, 'compl': 43, 're': 0}
+{'fecha': datetime.date(2025, 9, 18), 'n1': 4, 'n2': 7, 'n3': 15, 'n4': 17, 'n5': 19, 'n6': 38, 'compl': 22, 're': 8}
+{'fecha': datetime.date(2025, 9, 15), 'n1': 1, 'n2': 5, 'n3': 8, 'n4': 10, 'n5': 16, 'n6': 28, 'compl': 4, 're': 8}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49          2
+  3  14  17  29  37  46          5
+  4  11  22  31  41  47          7
+  5  10  23  30  42  45          9
+
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49          2
+  3  14  17  29  37  46          5
+  4  11  22  31  41  47          7
+  5  10  23  30  42  45          9
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  6   9  26  38  50   2  11
+  1   7  27  39  49   1   8
+  2  11  30  40  48   3  10
+  5  19  31  44  45   4   9
+  3  10  23  45  44   5   7
+
+Fase lunar Luna Nueva
+
+* RESULTADOS CALCULADOS PARA EL JUEVES *
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49
+  3  14  17  29  37  46
+  4  11  22  31  41  47
+  5  10  23  30  42  45
+
+Fase lunar Luna Nueva
+
+* RESULTADOS CALCULADOS PARA EL VIERNES *
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  6   9  26  38  50   2  11
+  1   7  27  39  49   1   8
+  2  11  30  40  48   3  10
+  5  19  31  44  45   4   9
+  3  10  23  45  44   5   7
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-09-19
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 9, 30), 'n1': 3, 'n2': 8, 'n3': 15, 'n4': 17, 'n5': 48, 'e1': 2, 'e2': 8}
+{'fecha': datetime.date(2025, 9, 26), 'n1': 4, 'n2': 17, 'n3': 25, 'n4': 28, 'n5': 44, 'e1': 5, 'e2': 11}
+{'fecha': datetime.date(2025, 9, 23), 'n1': 11, 'n2': 13, 'n3': 24, 'n4': 29, 'n5': 33, 'e1': 2, 'e2': 5}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-09-20
+
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 9, 29), 'n1': 1, 'n2': 8, 'n3': 14, 'n4': 25, 'n5': 34, 'n6': 49, 'compl': 16, 're': 0}
+{'fecha': datetime.date(2025, 9, 27), 'n1': 18, 'n2': 27, 'n3': 33, 'n4': 41, 'n5': 44, 'n6': 46, 'compl': 6, 're': 7}
+{'fecha': datetime.date(2025, 9, 25), 'n1': 6, 'n2': 14, 'n3': 28, 'n4': 29, 'n5': 33, 'n6': 38, 'compl': 25, 're': 1}
+{'fecha': datetime.date(2025, 9, 22), 'n1': 18, 'n2': 21, 'n3': 24, 'n4': 26, 'n5': 46, 'n6': 48, 'compl': 36, 're': 4}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  29  38  49          2
+  3  14  17  36  37  46          5
+  4  11  22  31  41  47          7
+  5  10  23  30  42  45          9
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  32  40  49          2
+  3  10  22  34  37  47          8
+  2   8  23  33  41  48          3
+  4   9  25  27  42  45          9
+  5  17  24  29  43  44          1
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  32  40  49          2
+  3  10  22  34  37  47          8
+  2   8  23  33  41  48          3
+  4   9  25  27  42  45          9
+  5  17  24  29  43  44          1
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  1  12  15  37  50   1   9
+  3  15  24  41  48   2   8
+  2  14  19  42  49   3  11
+  4   8  25  34  47   5   7
+  5  11  28  35  44   4  10
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  32  40  49
+  3  10  22  34  37  47
+  2   8  23  33  41  48          3
+  4   9  25  27  42  45
+  5  17  24  29  43  44
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  14  19  42  49   3  11
+  4   8  25  34  47   5   7
+  1  12  15  37  50   1   9
+  3  15  24  41  48   2   8
+  5  11  28  35  44   4  10
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-09-30
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 10, 7), 'n1': 24, 'n2': 39, 'n3': 42, 'n4': 43, 'n5': 48, 'e1': 5, 'e2': 8}
+{'fecha': datetime.date(2025, 10, 3), 'n1': 6, 'n2': 12, 'n3': 18, 'n4': 25, 'n5': 41, 'e1': 2, 'e2': 6}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-09-29
+
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 10, 6), 'n1': 10, 'n2': 12, 'n3': 14, 'n4': 19, 'n5': 30, 'n6': 44, 'compl': 8, 're': 4}
+{'fecha': datetime.date(2025, 10, 4), 'n1': 10, 'n2': 12, 'n3': 25, 'n4': 39, 'n5': 41, 'n6': 46, 'compl': 44, 're': 2}
+{'fecha': datetime.date(2025, 10, 2), 'n1': 5, 'n2': 18, 'n3': 26, 'n4': 29, 'n5': 34, 'n6': 39, 'compl': 8, 're': 9}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  32  40  49          2
+  3  10  22  34  37  47          8
+  2   8  23  33  41  48          9
+  4   9  25  27  42  45          3
+  5  17  24  29  43  44          1
+
+Fase lunar Luna Llena
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  18  32  45  43          7
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  4  17  24  36  50   2   9
+  1  16  21  39  49   3   8
+  2  15  25  40  48   1  10
+  3  20  29  35  42   5   7
+  5  14  23  38  44   4  11
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  18  32  45  43          7
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  15  25  40  48   1  10
+  3  20  29  35  42   5   7
+  4  17  24  36  50   2   9
+  1  16  21  39  49   3   8
+  5  14  23  38  44   4  11
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  18  32  45  43          7
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48          3
+  3   9  23  35  44  47          5
+  5  15  16  23  36  46          1
+  4   5  25  28  35  45          9
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  26  35  50   2   9
+  1  16  21  38  49   3  11
+  3  20  28  32  48   1   8
+  4  15  24  42  45   4   6
+  5  23  25  37  46   5  10
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          9
+  2  11  15  31  38  48
+  3   9  23  35  44  47
+  5  15  16  23  36  46
+  4   5  25  28  35  45
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  3  20  28  32  48   1   8
+  4  15  24  42  45   4   6
+  2  11  26  35  50   2   9
+  1  16  21  38  49   3  11
+  5  23  25  37  46   5  10
+
+Process finished with exit code 0
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-10-10
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 10, 17), 'n1': 13, 'n2': 35, 'n3': 39, 'n4': 44, 'n5': 47, 'e1': 3, 'e2': 5}
+{'fecha': datetime.date(2025, 10, 14), 'n1': 5, 'n2': 8, 'n3': 14, 'n4': 16, 'n5': 18, 'e1': 3, 'e2': 10}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-10-13
+
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 10, 20), 'n1': 2, 'n2': 8, 'n3': 14, 'n4': 24, 'n5': 28, 'n6': 39, 'compl': 43, 're': 3}
+{'fecha': datetime.date(2025, 10, 18), 'n1': 6, 'n2': 15, 'n3': 20, 'n4': 21, 'n5': 28, 'n6': 49, 'compl': 8, 're': 0}
+{'fecha': datetime.date(2025, 10, 16), 'n1': 2, 'n2': 4, 'n3': 7, 'n4': 13, 'n5': 19, 'n6': 34, 'compl': 17, 're': 6}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48          3
+  3  15  23  35  44  47          5
+  5   9  16  23  36  46          1
+  4   5  25  28  35  45          9
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  29  38  49          2
+  3  14  17  36  37  46          5
+  4  11  22  31  41  47          7
+  5  10  23  30  42  45          9
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  29  38  49          2
+  3  14  17  36  37  46          5
+  4  11  22  31  41  47          7
+  5  10  23  30  42  45          9
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  6   9  26  38  50   2  11
+  1   7  27  39  49   1   8
+  2  11  30  40  48   3  10
+  5  19  31  44  45   4   9
+  3  10  23  45  44   5   7
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  6   9  26  38  50   2  11
+  1   7  27  39  49   1   8
+  2  11  30  40  48   3  10
+  5  19  31  44  45   4   9
+  3  10  23  45  44   5   7
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-10-17
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 10, 28), 'n1': 7, 'n2': 8, 'n3': 24, 'n4': 35, 'n5': 49, 'e1': 2, 'e2': 12}
+{'fecha': datetime.date(2025, 10, 24), 'n1': 7, 'n2': 8, 'n3': 25, 'n4': 31, 'n5': 45, 'e1': 7, 'e2': 12}
+{'fecha': datetime.date(2025, 10, 21), 'n1': 5, 'n2': 24, 'n3': 29, 'n4': 40, 'n5': 42, 'e1': 6, 'e2': 12}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-10-20
+
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 10, 27), 'n1': 13, 'n2': 23, 'n3': 24, 'n4': 38, 'n5': 42, 'n6': 45, 'compl': 25, 're': 6}
+{'fecha': datetime.date(2025, 10, 25), 'n1': 5, 'n2': 13, 'n3': 14, 'n4': 36, 'n5': 44, 'n6': 46, 'compl': 12, 're': 1}
+{'fecha': datetime.date(2025, 10, 23), 'n1': 7, 'n2': 15, 'n3': 17, 'n4': 34, 'n5': 47, 'n6': 49, 'compl': 40, 're': 5}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49          2
+  3  14  17  29  37  46          5
+  4  11  22  31  42  47          7
+  5  10  23  30  41  45          9
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  32  40  49          2
+  3  10  22  34  37  47          8
+  2   8  23  33  41  48          9
+  4   9  25  27  42  45          3
+  5  17  24  29  43  44          1
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  32  40  49          2
+  3  10  22  34  37  47          8
+  2   8  23  33  41  48          9
+  4   9  25  27  42  45          3
+  5  17  24  29  43  44          1
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  6   9  26  38  50   2  11
+  1   7  25  39  49   1   8
+  2  11  27  40  48   3  10
+  5  19  30  31  45   4   9
+  3  10  31  35  44   5   7
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+   reintegro 3
+ n1  n2  n3  n4  n5  n6
+  1  13  19  32  40  49
+  3  10  22  34  37  47
+  2   8  23  33  41  48
+  4   9  25  27  42  45
+  5  17  24  29  43  44
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  1  12  15  37  50   1   9
+  3  15  24  41  48   2   8
+  2  14  19  42  49   3  11
+  4   8  25  34  47   5   7
+  5  11  28  35  44   4  10
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-10-28
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 10, 31), 'n1': 5, 'n2': 14, 'n3': 38, 'n4': 43, 'n5': 45, 'e1': 7, 'e2': 11}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-10-27
+
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 11, 3), 'n1': 14, 'n2': 19, 'n3': 29, 'n4': 37, 'n5': 40, 'n6': 41, 'compl': 48, 're': 9}
+{'fecha': datetime.date(2025, 11, 1), 'n1': 4, 'n2': 10, 'n3': 16, 'n4': 17, 'n5': 36, 'n6': 47, 'compl': 7, 're': 2}
+{'fecha': datetime.date(2025, 10, 30), 'n1': 8, 'n2': 9, 'n3': 19, 'n4': 34, 'n5': 39, 'n6': 42, 'compl': 13, 're': 2}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  34  40  49          2
+  3  10  22  32  37  47          8
+  2   8  23  33  41  48          9
+  4   9  25  27  39  45          3
+  5  17  24  29  42  44          1
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  18  32  45  43          7
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  18  32  45  43          7
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  1  12  15  37  50   1   9
+  3  14  24  41  48   2   8
+  2  15  19  42  49   3  11
+  5   8  25  34  47   5   7
+  4  11  28  35  44   4  10
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  4  17  24  36  50   2   9
+  1  16  21  39  49   3   8
+  2  15  25  40  48   1  10
+  3  20  29  35  42   5   7
+  5  14  23  38  44   4  11
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-10-31
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 11, 7), 'n1': 11, 'n2': 21, 'n3': 39, 'n4': 40, 'n5': 43, 'e1': 2, 'e2': 8}
+{'fecha': datetime.date(2025, 11, 4), 'n1': 6, 'n2': 9, 'n3': 25, 'n4': 28, 'n5': 45, 'e1': 1, 'e2': 4}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-11-03
+
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 11, 8), 'n1': 2, 'n2': 17, 'n3': 22, 'n4': 25, 'n5': 32, 'n6': 40, 'compl': 44, 're': 8}
+{'fecha': datetime.date(2025, 11, 6), 'n1': 11, 'n2': 16, 'n3': 18, 'n4': 37, 'n5': 45, 'n6': 46, 'compl': 22, 're': 9}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          0
+  4  10  17  30  36  46          8
+  5   8  18  32  45  43          7
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48          3
+  3  15  23  35  44  47          5
+  5   9  16  23  36  46          1
+  4   5  25  28  35  45          9
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48          3
+  3  15  23  35  44  47          5
+  5   9  16  23  36  46          1
+  4   5  25  28  35  45          9
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  4  17  24  36  50   2   9
+  1  16  21  40  49   3   8
+  2  15  25  39  48   1  10
+  3  20  29  35  42   5   7
+  5  14  23  38  44   4  11
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48
+  3  15  23  35  44  47
+  5   9  16  23  36  46
+  4   5  25  28  35  45
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  26  35  50   2   9
+  1  16  21  38  49   3  11
+  3  20  28  32  48   1   8
+  4  15  24  42  45   4   6
+  5  23  25  37  46   5  10
+
+/home/chema/PycharmProjects/loto2025_2/.venv/bin/python /home/chema/PycharmProjects/loto2025_2/main.py
+Fecha último sorteo guardado en base de datos de euromillones: 2025-11-07
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Euromillones
+**************   COMBINACIONES EUROMILLONES       ****************
+{'fecha': datetime.date(2025, 11, 14), 'n1': 9, 'n2': 26, 'n3': 27, 'n4': 45, 'n5': 48, 'e1': 8, 'e2': 9}
+{'fecha': datetime.date(2025, 11, 11), 'n1': 4, 'n2': 22, 'n3': 32, 'n4': 36, 'n5': 47, 'e1': 2, 'e2': 10}
+
+Actualización Base de datos de Euromillones FINALIZADA
+Fecha último sorteo guardado en base de datos de primitiva; 2025-11-08
+
+<class 'datetime.date'>
+
+ACTUALIZANDO Base de datos de Primitiva
+++++++++++++++   COMBINACIONES PRIMITIVA +++++++++++++++++
+{'fecha': datetime.date(2025, 11, 15), 'n1': 23, 'n2': 31, 'n3': 32, 'n4': 39, 'n5': 41, 'n6': 48, 'compl': 49, 're': 2}
+{'fecha': datetime.date(2025, 11, 13), 'n1': 2, 'n2': 6, 'n3': 7, 'n4': 25, 'n5': 41, 'n6': 49, 'compl': 48, 're': 7}
+{'fecha': datetime.date(2025, 11, 10), 'n1': 6, 'n2': 8, 'n3': 17, 'n4': 18, 'n5': 25, 'n6': 28, 'compl': 11, 're': 8}
+
+Actualización Base de datos de Primitiva FINALIZADA
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48          3
+  3  15  23  35  44  47          5
+  5   9  16  23  36  46          1
+  4   6  25  28  41  45          9
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49          2
+  3  14  17  29  37  46          5
+  4  11  22  31  42  47          7
+  5  10  23  30  41  45          9
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  26  35  50   2   9
+  1  16  21  38  49   3  11
+  3  20  28  32  48   1   8
+  4  15  24  42  45   4   6
+  5  23  27  37  46   5  10
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49          2
+  3  14  17  29  37  46          5
+  4  11  22  31  42  47          7
+  5  10  23  30  41  45          9
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  6   9  26  38  50   2  11
+  1   7  25  39  49   1   8
+  2  11  27  40  48   3  10
+  5  19  30  31  45   4   9
+  3  10  31  35  44   5   7
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48          3
+  3  15  23  35  44  47          5
+  5   9  16  23  36  46          1
+  4   6  25  28  41  45          9
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49          2
+  3  14  17  29  37  46          5
+  4  11  22  31  42  47          7
+  5  10  23  30  41  45          9
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49          2
+  3  14  17  29  37  46          5
+  4  11  22  31  42  47          7
+  5  10  23  30  41  45          9
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  26  35  50   2   9
+  1  16  21  38  49   3  11
+  3  20  28  32  48   1   8
+  4  15  24  42  45   4   6
+  5  23  27  37  46   5  10
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  6   9  26  38  50   2  11
+  1   7  25  39  49   1   8
+  2  11  27  40  48   3  10
+  5  19  30  31  45   4   9
+  3  10  31  35  44   5   7
+
+Process finished with exit code 0
+
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  34  40  49          2
+  3  10  22  32  37  47          8
+  2   8  23  33  41  48          9
+  4   9  25  27  39  45          3
+  5  17  24  29  42  44          1
+
+Fase lunar Cuarto Creciente
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  13  19  34  40  49          2
+  3  10  22  32  37  47          8
+  2   8  23  33  41  48          9
+  4   9  25  27  39  45          3
+  5  17  24  29  42  44          1
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          8
+  4  10  17  30  36  46          0
+  5   8  18  32  45  43          7
+  2  15  25  42  49   3  11
+  5   8  19  34  47   5   7
+  4  11  28  35  44   4  10
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  4  17  24  36  50   2   9
+  1  16  21  40  49   3   8
+  2  15  25  39  48   1  10
+  3  20  29  35  42   5   7
+  5  14  23  38  44   4  11
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          8
+  4  10  17  30  36  46          0
+  5   8  18  32  45  43          7
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          8
+  4  10  17  30  36  46          0
+  5   8  18  32  45  43          7
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48          3
+  3  15  23  35  44  47          5
+  5   9  16  23  36  46          1
+  4   6  25  28  41  45          2
+
+Fase lunar Luna Llena
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  4  17  24  36  50   2   9
+  1  15  21  40  49   3   8
+  2  16  25  39  48   1  10
+  3  20  29  35  42   5   7
+  5  14  23  38  44   4  11
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL JUEVES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   9  20  29  38  49          5
+  2  11  28  27  41  48          2
+  3  14  23  26  39  47          8
+  4  10  17  30  36  46          0
+  5   8  18  32  45  43          7
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL VIERNES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  26  35  50   2   9
+  1  16  21  38  49   3  11
+  3  20  28  32  48   1   8
+  4  15  24  42  45   4   6
+  5  23  27  37  46   5  10
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL LUNES
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48          3
+  3  15  23  35  44  47          5
+  5   9  25  23  36  46          1
+  4   6  16  28  41  45          2
+
+Fase lunar Luna Nueva
+
+RESULTADOS CALCULADOS PARA EL SABADO
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1   7  18  26  39  48          1
+  2  15  21  36  38  49          5
+  3  14  17  29  37  46          2
+  4  11  22  31  41  47          7
+  5  10  23  30  42  45          9
+
+Fase lunar Cuarto Menguante
+
+RESULTADOS CALCULADOS PARA EL MARTES
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  26  35  50   2   9
+  1  16  21  38  49   3  11
+  3  20  28  32  48   1   8
+  4  15  24  37  45   4   6
+  5  23  27  42  46   5  10
+
+Fase lunar Cuarto Menguante
+
+*RESULTADOS CALCULADOS PARA EL JUEVES*
+***********************************
+ n1  n2  n3  n4  n5  n6  reintegro
+  1  10  22  30  34  49          8
+  2  11  15  31  38  48
+  3  15  23  35  44  47
+  5   9  25  23  36  46
+  4   6  16  28  41  45
+
+Fase lunar Cuarto Menguante
+
+*RESULTADOS CALCULADOS PARA EL VIERNES*
+***********************************
+ n1  n2  n3  n4  n5  e1  e2
+  2  11  26  35  50   2   9
+  1  16  21  38  49   3  11
+  3  20  28  32  48   1   8
+  4  15  24  37  45   4   6
+  5  23  27  42  46   5  10
+
+Process finished with exit code 0

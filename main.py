@@ -8,6 +8,7 @@ from lotto_analysis.data_processing import (load_primitiva_data, load_euromillon
                                             analizar_euromillon, mostrar_combinaciones_por_dia)
 
 from db_utils.db_management import DBManager
+from other_utils.date_utils import fecha_dia_semana_sorteo
 
 def main():
     """
@@ -49,18 +50,18 @@ def main():
 
     # Filtro por las fases lunares de lunes, jueves y sábado
     resultados_lunes = mostrar_combinaciones_por_dia(resultados_primitiva, LUNES, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL LUNES\n"
-          f"***********************************\n"
+    print(f"\nRESULTADOS CALCULADOS PARA EL LUNES {fecha_dia_semana_sorteo(LUNES)}\n"
+          f"***********************************************\n"
           f"{resultados_lunes.to_string(index=False)}")
 
     resultados_jueves = mostrar_combinaciones_por_dia(resultados_primitiva, JUEVES, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL JUEVES\n"
-          f"***********************************\n"
+    print(f"\nRESULTADOS CALCULADOS PARA EL JUEVES {fecha_dia_semana_sorteo(JUEVES)}\n"
+          f"***********************************************\n"
           f"{resultados_jueves.to_string(index=False)}")
 
     resultados_sabado = mostrar_combinaciones_por_dia(resultados_primitiva, SABADO, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL SABADO\n"
-          f"***********************************\n"
+    print(f"\nRESULTADOS CALCULADOS PARA EL SABADO {fecha_dia_semana_sorteo(SABADO)}\n"
+          f"***********************************************\n"
           f"{resultados_sabado.to_string(index=False)}")
 
     # Analisis de los números de euromillones en base a la fase lunar
@@ -70,13 +71,13 @@ def main():
     # resultados_martes = resultados_euromillon[resultados_euromillon['fase_lunar'] ==
     #                                           fase_lunar_martes].head(Q_RESULTADOS - 3)
     resultados_martes = mostrar_combinaciones_por_dia(resultados_euromillon, MARTES, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL MARTES\n"
-          f"***********************************\n"
+    print(f"\nRESULTADOS CALCULADOS PARA EL MARTES {fecha_dia_semana_sorteo(MARTES)}\n"
+          f"***********************************************\n"
           f"{resultados_martes.to_string(index=False)}")
 
     resultados_viernes = mostrar_combinaciones_por_dia(resultados_euromillon, VIERNES, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL VIERNES\n"
-          f"***********************************\n"
+    print(f"\nRESULTADOS CALCULADOS PARA EL VIERNES {fecha_dia_semana_sorteo(VIERNES)}\n"
+          f"***********************************************\n"
           f"{resultados_viernes.to_string(index=False)}")
 
     return 0

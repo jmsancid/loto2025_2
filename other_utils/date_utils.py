@@ -96,3 +96,28 @@ def get_whole_week_moon_phase(week_number:None | int=None, year:None | int=None)
 
     return week_moon_phases
 
+
+def fecha_dia_semana_sorteo(dia_sem_obj: int, hoy: date | None = None) -> str:
+    """
+    Devuelve la fecha (AAAA-MM-DD) del día de semana dia_sem_obj (1=lunes..7=domingo)
+    según la regla:
+      - si hoy es domingo -> semana próxima
+      - si hoy no es domingo -> semana actual
+    """
+    if hoy is None:
+        hoy = date.today()
+
+    wd = hoy.weekday()  # date.weekday() devuelve: lunes=0 … domingo=6
+
+    # Lunes de la semana actual (ISO-like, lunes como inicio)
+    lunes_semana_actual = hoy - timedelta(days=wd)
+
+    # Si hoy es domingo (6), saltamos a la semana siguiente
+    if wd == 6:
+        lunes_referencia = lunes_semana_actual + timedelta(days=7)
+    else:
+        lunes_referencia = lunes_semana_actual
+
+    fecha_sorteo = lunes_referencia + timedelta(days=dia_sem_obj - 1)
+    return fecha_sorteo.isoformat()  # isoformat es '2025-12-30T11:44:34.426618'
+

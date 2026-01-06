@@ -49,6 +49,6 @@ OTONO       = 3
 INVIERNO    = 4
 ESTACIONES  = {1: 'PRIMAVERA',
                2: 'VERANO',
-               3: 'OTO�O',
+               3: 'OTOÑO',
                4: 'INVIERNO'}
 Q_RESULTADOS = 5

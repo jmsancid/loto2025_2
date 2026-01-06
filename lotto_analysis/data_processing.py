@@ -433,6 +433,7 @@ def mostrar_combinaciones_por_dia(df, dia, cantidad):
     """
     this_week_moon_phases = get_whole_week_moon_phase()
     fase = this_week_moon_phases.get(dia)
+    print(f"\nFase lunar {fase}")
 
     df_filtrado = df[df['fase_lunar'] == fase].head(cantidad)
 
