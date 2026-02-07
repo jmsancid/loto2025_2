@@ -19,7 +19,7 @@ SELEUROTOT = 'SelEuroTot'  # Nombre de la db con todas las apuestas de Euromillo
 PREMIADOSEURO = 'PremiadosEuro'  # Nombre de la db con todas las apuestas de Euromillones que coinciden
 # con alguna premiada anteriormente
 # DBDIR = r'/./'
-DBFILE = r'./loterias.db'
+DBFILE = r'/var/lib/santiloto/loterias.db'
 PICKLEDIR = r'/home/chema/PycharmProjects/loterias/pickleFiles/'
 LOTOPICKERFILE = 'loterias.pkl' # contiene un diccionario con los tipos de sorte como clave y las listas de
 # combinaciones como valor

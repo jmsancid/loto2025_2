@@ -26,6 +26,10 @@ venv/
 loterias.db
 *.sqlite
 *.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
 
 # --- Secrets / env files ---
 .env
