@@ -56,7 +56,9 @@ def main():
     tol_p = apuestas_semanales.tol_primitiva
     tol_e = apuestas_semanales.tol_euro
 
+    print("===WEEKLY_RESULT_BEGIN===")
     print(format_weekly_result(apuestas_semanales))
+    print("===WEEKLY_RESULT_END===")
 
     with loto_db as db:
         # weekly ya calculado
