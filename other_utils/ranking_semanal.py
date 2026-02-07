@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from datetime import datetime, date, timedelta, time
 import math
@@ -10,6 +11,12 @@ from other_utils.fase_lunar import obtener_valor_fase_lunar
 from other_utils.prevision_temp_hr import fetch_hourly_temp_rh, daily_window_means_from_hourly, calc_abs_humidity
 from other_utils.humidity_meteostat import CITY
 
+
+# -----------------------------
+# Logging
+# -----------------------------
+
+log = logging.getLogger(__name__)
 
 # -----------------------------
 # Domain models (apuestas)
@@ -454,8 +461,8 @@ def compute_weekly_apuestas(
     prim_dates = [d for d in pending["Primitiva"] if last_p is None or d > last_p]
     euro_dates = [d for d in pending["Euromillones"] if last_e is None or d > last_e]
 
-    print("[INFO] Pendientes Primitiva:", [d.isoformat() for d in prim_dates])
-    print("[INFO] Pendientes Euromillones:", [d.isoformat() for d in euro_dates])
+    log.info("Pendientes Primitiva:", [d.isoformat() for d in prim_dates])
+    log.info("Pendientes Euromillones:", [d.isoformat() for d in euro_dates])
 
     # 2) cargar histórico (una vez)
     hist_p = db.load_history_primitiva()
