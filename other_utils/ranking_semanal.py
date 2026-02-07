@@ -564,7 +564,7 @@ def compute_weekly_apuestas(
     euro_dates = [d for d in pending["Euromillones"] if last_e is None or d > last_e]
 
     log.info("Pendientes Primitiva: %s", [d.isoformat() for d in prim_dates])
-    log.info("Pendientes Euromillones: $s", [d.isoformat() for d in euro_dates])
+    log.info("Pendientes Euromillones: %s", [d.isoformat() for d in euro_dates])
 
     # 2) cargar histórico (una vez)
     hist_p = db.load_history_primitiva()
