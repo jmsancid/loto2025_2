@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 
 
-from constants import PRIMITIVA, EUROMILLONES, Q_RESULTADOS, LUNES, MARTES, JUEVES, VIERNES, SABADO
+from datetime import date
+
+from constants import PRIMITIVA, EUROMILLONES
 from other_utils.file_utils import need_db_update, actualizacion_db, check_results_db_file
-from lotto_analysis.data_processing import (load_primitiva_data, load_euromillones_data, analizar_primitiva,
-                                            analizar_euromillon, mostrar_combinaciones_por_dia)
 
 from db_utils.db_management import DBManager
-from other_utils.date_utils import fecha_dia_semana_sorteo
+from other_utils.ranking_semanal import compute_weekly_apuestas, format_weekly_result
+
 
 def main():
     """
@@ -24,7 +25,7 @@ def main():
         else:
             print(f"No se ha realizado la actualización de Euromillones")
     else:
-        print(f"\nNO ES NECESARIO ACTUALIZAR la Base de datos de Euromillones\n")
+        print(f"NO ES NECESARIO ACTUALIZAR la Base de datos de Euromillones\n")
 
     if need_db_update(PRIMITIVA):
         if actualizacion_db(PRIMITIVA):
@@ -32,7 +33,7 @@ def main():
         else:
             print(f"No se ha realizado la actualización de Primitiva")
     else:
-        print(f"\nNO ES NECESARIO ACTUALIZAR la Base de datos de Primitiva\n")
+        print(f"NO ES NECESARIO ACTUALIZAR la Base de datos de Primitiva\n")
 
     loto_db_path = check_results_db_file()
     if not loto_db_path:
@@ -40,45 +41,35 @@ def main():
         raise FileNotFoundError
 
     loto_db = DBManager(loto_db_path)  # Instancia de la base de datos de sorteos de primitiva y euromillones
-    primi_df = load_primitiva_data(loto_db)  # Panda dataframe de primitiva
-    euro_df = load_euromillones_data(loto_db)  # Panda dataframes de números y estrellas
-    # euro_num_df, euro_estrellas_df = load_euromillones_data(loto_db)  # Panda dataframes de números y estrellas
-    # de euromillones
 
-    # Analisis de primitiva en base a la fase lunar
-    resultados_primitiva = analizar_primitiva(primi_df)
+    print("DB PATH:", loto_db.db_path)
 
-    # Filtro por las fases lunares de lunes, jueves y sábado
-    resultados_lunes = mostrar_combinaciones_por_dia(resultados_primitiva, LUNES, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL LUNES {fecha_dia_semana_sorteo(LUNES)}\n"
-          f"***********************************************\n"
-          f"{resultados_lunes.to_string(index=False)}")
+    with loto_db as db:
+        db.sync_sorteo_influencers()
 
-    resultados_jueves = mostrar_combinaciones_por_dia(resultados_primitiva, JUEVES, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL JUEVES {fecha_dia_semana_sorteo(JUEVES)}\n"
-          f"***********************************************\n"
-          f"{resultados_jueves.to_string(index=False)}")
+    apuestas_semanales = compute_weekly_apuestas(db=loto_db,
+        today=date.today()
+    )
 
-    resultados_sabado = mostrar_combinaciones_por_dia(resultados_primitiva, SABADO, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL SABADO {fecha_dia_semana_sorteo(SABADO)}\n"
-          f"***********************************************\n"
-          f"{resultados_sabado.to_string(index=False)}")
+    week_start = apuestas_semanales.week_start
+    week_end = apuestas_semanales.week_end
+    tol_p = apuestas_semanales.tol_primitiva
+    tol_e = apuestas_semanales.tol_euro
 
-    # Analisis de los números de euromillones en base a la fase lunar
-    resultados_euromillon = analizar_euromillon(euro_df)
+    print(format_weekly_result(apuestas_semanales))
 
-    # Filtro por las fases lunares de martes y viernes (sólo imprimo 2 combinaciones
-    # resultados_martes = resultados_euromillon[resultados_euromillon['fase_lunar'] ==
-    #                                           fase_lunar_martes].head(Q_RESULTADOS - 3)
-    resultados_martes = mostrar_combinaciones_por_dia(resultados_euromillon, MARTES, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL MARTES {fecha_dia_semana_sorteo(MARTES)}\n"
-          f"***********************************************\n"
-          f"{resultados_martes.to_string(index=False)}")
-
-    resultados_viernes = mostrar_combinaciones_por_dia(resultados_euromillon, VIERNES, Q_RESULTADOS)
-    print(f"\nRESULTADOS CALCULADOS PARA EL VIERNES {fecha_dia_semana_sorteo(VIERNES)}\n"
-          f"***********************************************\n"
-          f"{resultados_viernes.to_string(index=False)}")
+    with loto_db as db:
+        # weekly ya calculado
+        db.upsert_santi_primitiva(
+            apuestas_semanales.apuestas_primitiva,
+            week_start=week_start, week_end=week_end,
+            tol_frac=tol_p, method_version="v1", city="Madrid"
+        )
+        db.upsert_santi_euromillones(
+            apuestas_semanales.apuestas_euromillones,
+            week_start=week_start, week_end=week_end,
+            tol_frac=tol_e, method_version="v1", city="Paris"
+        )
 
     return 0
 

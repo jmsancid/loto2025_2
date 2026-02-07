@@ -1,6 +1,6 @@
 
 import re
-from datetime import datetime
+from datetime import datetime, date
 
 import requests
 from bs4 import BeautifulSoup
@@ -9,13 +9,18 @@ import constants as cte
 from other_utils.date_utils import procesa_fecha
 
 
+def filtra_combinaciones_nuevas(combinaciones, last_date):
+    if last_date is None:
+        return combinaciones
+    return {d: vals for d, vals in combinaciones.items() if d > last_date}
+
+
 def getEuroLatestResults():
-    '''
-    Versión 2025 con ayuda de Gemini
-    Devuelve un diccionario con los últimos resultados de euromillones, siendo la clave una cadena
-    con la fecha y el valor una lista con los números extraídos
-    :return: diccionario {fecha: [num1, num2, num3, num4, num5, estrella1, estrella2]}
-    '''
+    """
+    Devuelve un diccionario con los últimos resultados de euromillones.
+    :return: dict[datetime.date, list[int]]
+    """
+
     response = requests.get(cte.EUROWEB)
     # response = requests.get(lotoparams.EUROWEB)
     # soup = BeautifulSoup(response.text, 'lxml')
@@ -43,7 +48,7 @@ def getEuroLatestResults():
     return combinacionesExtraidas
 
 
-def getPrimiLatestResults():
+def getPrimiLatestResults(fecha_inicial: date | None = None) -> dict[date, list[int]]:
     '''
     Devuelve un diccionario con los resultados de primitiva del último mes, siendo la clave una cadena
     con la fecha y el valor una lista con los números extraídos.
@@ -52,7 +57,7 @@ def getPrimiLatestResults():
     :return: diccionario {fecha: [num1, num2, num3, num4, num5, num6, comp, re]}
             1 si ha habido algún error
     '''
-    # En 2025 he tenido que cambiar la forma de extraer los números de la primitiva, utilizando una script que
+    # En 2025 he tenido que cambiar la forma de extraer los números de la primitiva, utilizando un script que
     # encontré mientras inspeccionaba la web de primitivas y que se llama buscadorSorteos
     # next_monday = datetime.now() + timedelta(days=8-datetime.now().isoweekday())
     # four_mondays_ago = next_monday + timedelta(weeks=-4)
@@ -75,10 +80,17 @@ def getPrimiLatestResults():
                   '%27explicit%27%2Cver:1%2Cutc:1740931548034%2Cregion:%27es%27}'
     }
 
+    hoy = date.today()
+    if fecha_inicial is None:
+        fecha_inicio_str = f"{hoy.year}0101"
+    else:
+        # sumas un día para no repetir el último ya guardado
+        fecha_inicio_str = (fecha_inicial).strftime("%Y%m%d")
+
     params = {
         'game_id': 'LAPR',
         'celebrados': 'true',
-        'fechaInicioInclusiva': f"{datetime.now().year}{1:02d}{1:02d}",
+        'fechaInicioInclusiva': fecha_inicio_str,
         'fechaFinInclusiva': f"{datetime.now().year}{datetime.now().month:02d}{datetime.now().day:02d}"
     }
 
@@ -93,13 +105,20 @@ def getPrimiLatestResults():
     combinaciones_extraidas = {}
     for sorteo in sorteos:
         # Extraigo la fecha y la convierto en formato datetime.date
-        fecha_sorteo = datetime.strptime(sorteo.get("fecha_sorteo"), '%Y-%m-%d %H:%M:%S')
-        fecha = datetime(fecha_sorteo.year, fecha_sorteo.month,fecha_sorteo.day).date()
+        fecha_sorteo = datetime.strptime(
+            sorteo.get("fecha_sorteo"), '%Y-%m-%d %H:%M:%S'
+        ).date()
+        # fecha = datetime(fecha_sorteo.year, fecha_sorteo.month,fecha_sorteo.day).date()
 
-        if fecha is None:
-          continue
-        str_comb = sorteo.get("combinacion")
-        combinaciones_extraidas[fecha] = list(map(int, re.findall(r'\d+', str_comb)))
+        # if fecha is None:
+        #   continue
+        # str_comb = sorteo.get("combinacion")
+        # combinaciones_extraidas[fecha] = list(map(int, re.findall(r'\d+', str_comb)))
+
+        nums = list(map(int, re.findall(r"\d+", sorteo["combinacion"])))
+        combinaciones_extraidas[fecha_sorteo] = nums
+
+
     return combinaciones_extraidas
 
 

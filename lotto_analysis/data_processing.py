@@ -4,7 +4,7 @@
 # lotto_analysis/data_processing.py
 import pandas as pd
 from db_utils.db_management import DBManager
-from other_utils.date_utils import obtener_fase_lunar, get_whole_week_moon_phase
+from other_utils.fase_lunar import obtener_fase_lunar, get_whole_week_moon_phase
 from constants import PRIMITIVA, EUROMILLONES, Q_RESULTADOS
 
 def load_primitiva_data(db_manager: DBManager):

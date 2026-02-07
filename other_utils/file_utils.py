@@ -32,7 +32,7 @@ def check_results_db_file() -> Path | None:
         return None
 
 
-def get_latest_results_in_db(sorteo) -> Union[datetime.date, int]:
+def get_latest_results_in_db(sorteo: str) -> Union[datetime.date, int]:
     """
     Devuelve la fecha del último sorteo almacenado en la base de datos de primi o euro
     :param sorteo: tipo de sorteo, euromillones o primitiva
@@ -60,7 +60,7 @@ def get_latest_results_in_db(sorteo) -> Union[datetime.date, int]:
         fecha = datetime(fecha_datetime.year, fecha_datetime.month, fecha_datetime.day).date()
         return fecha
 
-    return 1
+    return None
 
 
 def convierte_combinaciones_en_lista_dict(combinaciones, columnas) -> list | None:
@@ -93,11 +93,18 @@ def convierte_combinaciones_en_lista_dict(combinaciones, columnas) -> list | Non
     return None
 
 
-def inserta_resultados_sorteos_en_db(combinaciones) -> bool | None:
+def filtra_combinaciones_nuevas(combinaciones, last_date):
+    if last_date is None:
+        return combinaciones
+    return {d: vals for d, vals in combinaciones.items() if d > last_date}
+
+
+def inserta_resultados_sorteos_en_db(tabla_sorteo, combinaciones) -> bool | None:
     """
     Inserta una combinación en la base de datos de loterías, en la tabla del sorteo correspondiente.
-    El tipo de sorteo se identifica por la fecha. M-V Euromilloones. L-J-S Primitiva
-    :param combinaciones: diccionario con la fecha como clave y una lista con los números que han salido en el
+    Como la llamada a la inserción de registros se realiza sabiendo a qué tabla se va a insertar, basta con indicarlo
+    en la llamada a la función.
+    :param combinaciones: diccionario con la fecha como clave y una lista con los números que han salido en el sorteo
     :return: True si se ha insertado el registro correctamente y False en caso contrario
     """
 
@@ -105,19 +112,27 @@ def inserta_resultados_sorteos_en_db(combinaciones) -> bool | None:
     # según el día de la semaan en el que se ha celebrado. Basta con mirar la fecha del
     # primer elemento del diccionario
 
-    fecha_sorteo = next(iter(combinaciones))  # extraigo la primera fecha del diccionario
-    dia_semana = fecha_sorteo.isoweekday()
+    # fecha_sorteo = next(iter(combinaciones))  # extraigo la primera fecha del diccionario
+    # dia_semana = fecha_sorteo.isoweekday()
+    #
+    # if dia_semana in (1, 4, 6):
+    #     tabla_sorteo = PRIMITIVA
+    #     columnas = PRIMIFIELDS[1:]  # Ignoramos el campo idx, que se rellena automáticamente
+    # elif dia_semana in (2, 5):
+    #     tabla_sorteo = EUROMILLONES
+    #     columnas = EUROFIELDS[1:]  # Ignoramos el campo idx, que se rellena automáticamente
+    # else:
+    #     print(f"La fecha extraída de la combinación, {fecha_sorteo} no corresponde ni a "
+    #           f"Primitiva ni a Euromillones\n\n."
+    #           f"Registro NO INSERTADO")
+    #     return None
 
-    if dia_semana in (1, 4, 6):
-        tabla_sorteo = PRIMITIVA
+    if tabla_sorteo  == PRIMITIVA:
         columnas = PRIMIFIELDS[1:]  # Ignoramos el campo idx, que se rellena automáticamente
-    elif dia_semana in (2, 5):
-        tabla_sorteo = EUROMILLONES
+    elif tabla_sorteo == EUROMILLONES:
         columnas = EUROFIELDS[1:]  # Ignoramos el campo idx, que se rellena automáticamente
     else:
-        print(f"La fecha extraída de la combinación, {fecha_sorteo} no corresponde ni a "
-              f"Primitiva ni a Euromillones\n\n."
-              f"Registro NO INSERTADO")
+        print(f"La Tabla del sorteo, {tabla_sorteo}, no existe ")
         return None
 
     # Convertimos el diccionario 'combinaciones' al formato en el que se puede insertar en la base de datos.
@@ -138,6 +153,7 @@ def inserta_resultados_sorteos_en_db(combinaciones) -> bool | None:
 
     if gestor_db.insertar_registros(tabla_sorteo, comb_a_db):
         print(*comb_a_db, sep='\n')
+        # gestor_db.sync_sorteo_influencers()
         return True
     else:
         print(f"No se ha podido insertar ningún registro de la lista"
@@ -170,8 +186,9 @@ def need_db_update(sorteo: str) -> bool:
         num_semana_ultima_primi = (fecha_ultimo_sorteo_primi_guardado.year % 100 * 100 +
                                    fecha_ultimo_sorteo_primi_guardado.isocalendar().week)
         dia_semana_ultima_primi = fecha_ultimo_sorteo_primi_guardado.isoweekday()
-        print(f"Fecha último sorteo guardado en base de datos de primitiva; "
-              f"{fecha_ultimo_sorteo_primi_guardado}\n\n{type(fecha_ultimo_sorteo_primi_guardado)}")
+        print(f"\nFecha último sorteo guardado en base de datos de primitiva; "
+              f"{fecha_ultimo_sorteo_primi_guardado}")
+              # f"{fecha_ultimo_sorteo_primi_guardado}\n\n{type(fecha_ultimo_sorteo_primi_guardado)}")
         if num_semana_ultima_primi < last_week or \
                 num_semana_ultima_primi < this_week and dia_semana_ultima_primi < 6 or \
                 num_semana_ultima_primi == this_week and dia_semana_ultima_primi < 6 and este_dia == 7:
@@ -186,8 +203,9 @@ def need_db_update(sorteo: str) -> bool:
                                   fecha_ultimo_sorteo_euro_guardado.isocalendar().week)
 
         dia_semana_ultima_euro = fecha_ultimo_sorteo_euro_guardado.isoweekday()
-        print(f"Fecha último sorteo guardado en base de datos de euromillones: "
-              f"{fecha_ultimo_sorteo_euro_guardado}\n{type(fecha_ultimo_sorteo_euro_guardado)}")
+        print(f"\nFecha último sorteo guardado en base de datos de euromillones: "
+              f"{fecha_ultimo_sorteo_euro_guardado}")
+              # f"{fecha_ultimo_sorteo_euro_guardado}\n{type(fecha_ultimo_sorteo_euro_guardado)}")
         if num_semana_ultima_euro < last_week or \
                 num_semana_ultima_euro < this_week and dia_semana_ultima_euro < 5 or \
                 num_semana_ultima_euro == this_week and dia_semana_ultima_euro < 5 and este_dia == 7:
@@ -212,15 +230,18 @@ def actualizacion_db(sorteo: str) -> bool | None:
         euro_comb_faltantes_en_db = {fecha: combi for fecha, combi in ultimos_resultados_euromillon.items()
                                      if fecha > fecha_ultimo_sorteo_euro_guardado}
         # print(euro_comb_faltantes_en_db)
-        return inserta_resultados_sorteos_en_db(euro_comb_faltantes_en_db)
+        return inserta_resultados_sorteos_en_db(EUROMILLONES, euro_comb_faltantes_en_db)
     if sorteo == PRIMITIVA:
         print(f"\nACTUALIZANDO Base de datos de Primitiva")
         fecha_ultimo_sorteo_primi_guardado = get_latest_results_in_db(PRIMITIVA)
-        ultimos_resultados_primitiva = getPrimiLatestResults()
+        ultimos_resultados_primitiva = getPrimiLatestResults(
+            None if fecha_ultimo_sorteo_primi_guardado is None else
+            fecha_ultimo_sorteo_primi_guardado + timedelta(days=1)
+        )
         # print(ultimos_resultados_primitiva)
         primi_comb_faltantes_en_db = {fecha: combi for fecha, combi in ultimos_resultados_primitiva.items()
                                       if fecha > fecha_ultimo_sorteo_primi_guardado}
         # print(primi_comb_faltantes_en_db)
-        return inserta_resultados_sorteos_en_db(primi_comb_faltantes_en_db)
+        return inserta_resultados_sorteos_en_db(PRIMITIVA, primi_comb_faltantes_en_db)
 
     return False
