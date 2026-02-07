@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import os
+import json
+from pathlib import Path
 import logging
 from dataclasses import dataclass
 from datetime import datetime, date, timedelta, time
@@ -400,7 +403,16 @@ def forecast_map_for_city(
     """
     Devuelve un dict: date -> DailyWindowMean
     """
-    hourly = fetch_hourly_temp_rh(citycfg, days=window_days)
+    fixture_dir = os.environ.get("SANTILOTO_FORECAST_FIXTURE_DIR")
+    if fixture_dir:
+        # Usamos key estable ("madrid", "paris") para el nombre del fixture
+        p = Path(fixture_dir) / f"{citycfg.key}.json"
+        if p.exists():
+            hourly = json.loads(p.read_text(encoding="utf-8"))
+        else:
+            hourly = fetch_hourly_temp_rh(citycfg, days=window_days)
+    else:
+        hourly = fetch_hourly_temp_rh(citycfg, days=window_days)
 
     daily = daily_window_means_from_hourly(
         time=hourly["time"],
@@ -539,6 +551,51 @@ def _compute_euro_for_dates(
     return apuestas, (tol_used if dates else None)
 
 
+def _future_pending_dates(
+    *,
+    db: DBManager,
+    today: date,
+) -> tuple[list[date], list[date]]:
+    """
+    Devuelve (prim_dates, euro_dates) futuras pendientes,
+    filtradas para no incluir fechas <= último sorteo guardado.
+    """
+    pending = pending_draw_dates(today)
+
+    last_p = _to_date_sql(db.fecha_ultimo_resultado("Primitiva", "fecha"))
+    last_e = _to_date_sql(db.fecha_ultimo_resultado("Euromillones", "fecha"))
+
+    prim_dates = [d for d in pending["Primitiva"] if last_p is None or d > last_p]
+    euro_dates = [d for d in pending["Euromillones"] if last_e is None or d > last_e]
+
+    return prim_dates, euro_dates
+
+
+def _load_histories(db: DBManager):
+    """Carga históricos una sola vez."""
+    return db.load_history_primitiva(), db.load_history_euromillones()
+
+
+def _global_ranks_from_hist(hist_p, hist_e) -> tuple[dict, dict, dict, dict]:
+    """
+    Rankings globales históricos:
+      - primitiva: números, reintegro
+      - euromillones: números, estrellas
+    """
+    global_p_nums = sort_score_dict(global_rank_counts(num for r in hist_p for num in r.n))
+    global_p_re = sort_score_dict(global_rank_counts(r.re for r in hist_p if r.re is not None))
+    global_e_nums = sort_score_dict(global_rank_counts(num for r in hist_e for num in r.n))
+    global_e_stars = sort_score_dict(global_rank_counts(st for r in hist_e for st in r.e))
+    return global_p_nums, global_p_re, global_e_nums, global_e_stars
+
+
+def _forecast_maps() -> tuple[dict, dict]:
+    """Forecast map por ciudad (date -> meteo)."""
+    fc_madrid = forecast_map_for_city(CITY["MADRID"])
+    fc_paris = forecast_map_for_city(CITY["PARIS"])
+    return fc_madrid, fc_paris
+
+
 def compute_weekly_apuestas(
     *,
     db: DBManager,
@@ -555,32 +612,20 @@ def compute_weekly_apuestas(
       - si aún faltan: fallback global histórico
     """
     # 1) fechas pendientes
-    pending = pending_draw_dates(today)
-
-    last_p = _to_date_sql(db.fecha_ultimo_resultado("Primitiva", "fecha"))
-    last_e = _to_date_sql(db.fecha_ultimo_resultado("Euromillones", "fecha"))
-
-    prim_dates = [d for d in pending["Primitiva"] if last_p is None or d > last_p]
-    euro_dates = [d for d in pending["Euromillones"] if last_e is None or d > last_e]
+    prim_dates, euro_dates = _future_pending_dates(db=db, today=today)
 
     log.info("Pendientes Primitiva: %s", [d.isoformat() for d in prim_dates])
     log.info("Pendientes Euromillones: %s", [d.isoformat() for d in euro_dates])
 
     # 2) cargar histórico (una vez)
-    hist_p = db.load_history_primitiva()
-    hist_e = db.load_history_euromillones()
+    hist_p, hist_e = _load_histories(db)
 
     # 3) fallback global rankings
-    global_p_nums = sort_score_dict(global_rank_counts(num for r in hist_p for num in r.n))
-    global_p_re = sort_score_dict(global_rank_counts(r.re for r in hist_p if r.re is not None))
-    global_e_nums = sort_score_dict(global_rank_counts(num for r in hist_e for num in r.n))
-    global_e_stars = sort_score_dict(global_rank_counts(st for r in hist_e for st in r.e))
+    global_p_nums, global_p_re, global_e_nums, global_e_stars = _global_ranks_from_hist(hist_p, hist_e)
 
     # 4) forecast window por ciudad (una vez)
     #    (map date -> (temp_mean, rh_mean))
-
-    fc_madrid = forecast_map_for_city(CITY["MADRID"])
-    fc_paris = forecast_map_for_city(CITY["PARIS"])
+    fc_madrid, fc_paris = _forecast_maps()
 
     # 5) construir scores por sorteo futuro y sumar a ranking semanal
 
