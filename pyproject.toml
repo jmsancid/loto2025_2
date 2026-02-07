@@ -1,0 +1,45 @@
+[project]
+name = "santiloto"
+version = "0.1.0"
+description = "Análisis y generación de apuestas de Primitiva y Euromillones"
+requires-python = ">=3.11"
+
+dependencies = [
+  "astral>=3.2",
+  "beautifulsoup4>=4.14",
+  "lxml>=6.0",
+  "numpy>=2.0",
+  "pandas>=2.3",
+  "python-dateutil>=2.9",
+  "pytz",
+  "requests>=2.32",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "ruff",
+]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+  "db_utils*",
+  "web_utils*",
+  "other_utils*",
+  "lotto_analysis*",
+]
+exclude = [
+  "tests*",
+  "docs*",
+  "scripts*",
+  ".venv*",
+]
+
