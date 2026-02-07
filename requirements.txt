@@ -1,7 +1,0 @@
-astral==3.2
-beautifulsoup4==4.14.3
-pandas==3.0.0
-requests==2.32.5
-lxml==6.0.2
-meteostat==2.1.0
-
