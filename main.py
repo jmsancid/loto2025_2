@@ -3,6 +3,7 @@
 
 
 from datetime import date
+import logging
 
 from constants import PRIMITIVA, EUROMILLONES
 from other_utils.file_utils import need_db_update, actualizacion_db, check_results_db_file
@@ -16,6 +17,8 @@ def main():
     Programa para preparar combinaciones de primitiva y euromillones
     :return: 0 si Todo es correcto
     """
+
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(name)s:%(message)s")
 
     # Compruebo si es necesario actualizar la base de datos de Primitivas y Euromillones
 
