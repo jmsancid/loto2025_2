@@ -12,6 +12,13 @@ from db_utils.db_management import DBManager
 from other_utils.ranking_semanal import compute_weekly_apuestas, format_weekly_result
 
 
+def _today():
+    import os
+    if "SANTILOTO_TODAY" in os.environ:
+        return date.fromisoformat(os.environ["SANTILOTO_TODAY"])
+    return date.today()
+
+
 def main():
     """
     Programa para preparar combinaciones de primitiva y euromillones
@@ -51,7 +58,7 @@ def main():
         db.sync_sorteo_influencers()
 
     apuestas_semanales = compute_weekly_apuestas(db=loto_db,
-        today=date.today()
+        today=_today()
     )
 
     week_start = apuestas_semanales.week_start
