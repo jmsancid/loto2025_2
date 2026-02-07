@@ -9,8 +9,8 @@ from constants import PRIMITIVA, EUROMILLONES
 from other_utils.file_utils import need_db_update, actualizacion_db, check_results_db_file
 
 from db_utils.db_management import DBManager
-from other_utils.ranking_semanal import compute_weekly_apuestas
-from other_utils.weekly.format import format_weekly_result
+from other_utils.ranking_semanal import compute_weekly_apuestas, format_weekly_result
+# from other_utils.weekly.format import format_weekly_result
 
 
 

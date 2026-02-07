@@ -1,11 +1,6 @@
 from __future__ import annotations
 from datetime import date
-# from .types import WeeklyResult  # lo creamos en el siguiente paso si aún no existe
-
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from other_utils.ranking_semanal import WeeklyResult
+from .types import WeeklyResult  # lo creamos en el siguiente paso si aún no existe
 
 
 _ES_DAYS = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]

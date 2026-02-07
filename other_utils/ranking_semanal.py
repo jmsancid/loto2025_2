@@ -13,6 +13,8 @@ from db_utils.db_management import DBManager
 from other_utils.fase_lunar import obtener_valor_fase_lunar
 from other_utils.prevision_temp_hr import fetch_hourly_temp_rh, daily_window_means_from_hourly, calc_abs_humidity
 from other_utils.humidity_meteostat import CITY
+from other_utils.weekly.format import format_weekly_result
+from other_utils.weekly.types import Apuesta_Primitiva, Apuesta_Euromillones, WeeklyResult
 
 
 # -----------------------------
@@ -20,21 +22,6 @@ from other_utils.humidity_meteostat import CITY
 # -----------------------------
 
 log = logging.getLogger(__name__)
-
-# -----------------------------
-# Domain models (apuestas)
-# -----------------------------
-
-@dataclass(frozen=True)
-class Apuesta_Primitiva:
-    # 5 combinaciones de 6 números cada una + reintegro común
-    combinaciones: tuple[tuple[int, int, int, int, int, int], ...]  # len=5
-    reintegro: int  # 0..9
-
-@dataclass(frozen=True)
-class Apuesta_Euromillones:
-    # 2 combinaciones: 5 números + 2 estrellas
-    combinaciones: tuple[tuple[tuple[int, int, int, int, int], tuple[int, int]], ...]  # len=2
 
 
 # -----------------------------
@@ -379,18 +366,6 @@ def build_apuestas_euromillones(
 # -----------------------------
 # Main: weekly ranking + apuestas
 # -----------------------------
-
-@dataclass(frozen=True)
-class WeeklyResult:
-    primitiva_dates: tuple[date, ...]
-    euromillones_dates: tuple[date, ...]
-    apuestas_primitiva: tuple[tuple[date, Apuesta_Primitiva], ...]
-    apuestas_euromillones: tuple[tuple[date, Apuesta_Euromillones], ...]
-    week_start: Optional[date] = None
-    week_end: Optional[date] = None
-    tol_primitiva: Optional[float] = None
-    tol_euro: Optional[float] = None
-    method_version: str = "v1"
 
 
 def forecast_map_for_city(
