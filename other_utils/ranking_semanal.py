@@ -437,6 +437,108 @@ def target_context_for_date(
     return T, RH, AH, moon_bin
 
 
+def _compute_primitiva_for_dates(
+    *,
+    dates: list[date],
+    hist_p,
+    fc_map,
+    tol_options: tuple[float, float],
+    global_nums_rank: dict,
+    global_re_rank: dict,
+) -> tuple[list[tuple[date, Apuesta_Primitiva]], Optional[float]]:
+    apuestas: list[tuple[date, Apuesta_Primitiva]] = []
+    tol_used: Optional[float] = tol_options[0] if dates else None
+
+    for d in dates:
+        T, RH, AH, mb = target_context_for_date(d=d, fc_map=fc_map)
+
+        ap_list: list[Apuesta_Primitiva] = []
+        used_frac = tol_options[-1]
+
+        for frac in tol_options:
+            s_nums, s_re = score_primitiva_for_target(
+                hist_p,
+                target_temp=T, target_rh=RH, target_ah=AH,
+                target_moon_bin=mb,
+                frac=frac,
+            )
+            ap_list = build_apuestas_primitiva(
+                weekly_nums_rank=s_nums,
+                weekly_re_rank=s_re,
+                global_nums_rank=global_nums_rank,
+                global_re_rank=global_re_rank,
+            )
+            if ap_list:
+                used_frac = frac
+                break
+
+        if not ap_list:
+            ap_list = build_apuestas_primitiva(
+                weekly_nums_rank={},
+                weekly_re_rank={},
+                global_nums_rank=global_nums_rank,
+                global_re_rank=global_re_rank,
+            )
+            used_frac = tol_options[-1]
+
+        if ap_list:
+            apuestas.append((d, ap_list[0]))
+            tol_used = used_frac if tol_used is None else max(tol_used, used_frac)
+
+    return apuestas, (tol_used if dates else None)
+
+
+def _compute_euro_for_dates(
+    *,
+    dates: list[date],
+    hist_e,
+    fc_map,
+    tol_options: tuple[float, float],
+    global_nums_rank: dict,
+    global_stars_rank: dict,
+) -> tuple[list[tuple[date, Apuesta_Euromillones]], Optional[float]]:
+    apuestas: list[tuple[date, Apuesta_Euromillones]] = []
+    tol_used: Optional[float] = tol_options[0] if dates else None
+
+    for d in dates:
+        T, RH, AH, mb = target_context_for_date(d=d, fc_map=fc_map)
+
+        ap_list: list[Apuesta_Euromillones] = []
+        used_frac = tol_options[-1]
+
+        for frac in tol_options:
+            s_nums, s_st = score_euro_for_target(
+                hist_e,
+                target_temp=T, target_rh=RH, target_ah=AH,
+                target_moon_bin=mb,
+                frac=frac,
+            )
+            ap_list = build_apuestas_euromillones(
+                weekly_nums_rank=s_nums,
+                weekly_stars_rank=s_st,
+                global_nums_rank=global_nums_rank,
+                global_stars_rank=global_stars_rank,
+            )
+            if ap_list:
+                used_frac = frac
+                break
+
+        if not ap_list:
+            ap_list = build_apuestas_euromillones(
+                weekly_nums_rank={},
+                weekly_stars_rank={},
+                global_nums_rank=global_nums_rank,
+                global_stars_rank=global_stars_rank,
+            )
+            used_frac = tol_options[-1]
+
+        if ap_list:
+            apuestas.append((d, ap_list[0]))
+            tol_used = used_frac if tol_used is None else max(tol_used, used_frac)
+
+    return apuestas, (tol_used if dates else None)
+
+
 def compute_weekly_apuestas(
     *,
     db: DBManager,
@@ -486,91 +588,26 @@ def compute_weekly_apuestas(
 
     # Primitiva (Madrid) - por fecha
 
-    apuestas_primitiva: list[tuple[date, Apuesta_Primitiva]] = []
-    tol_p_used: float = tol_options[0] if prim_dates else None  # type: ignore[assignment]
-
-    for d in prim_dates:
-        T, RH, AH, mb = target_context_for_date(
-            d=d,
-            fc_map=fc_madrid,
-        )
-
-        ap_p_list: list[Apuesta_Primitiva] = []
-        used_frac = tol_options[-1]
-
-        for frac in tol_options:
-            s_nums, s_re = score_primitiva_for_target(
-                hist_p,
-                target_temp=T, target_rh=RH, target_ah=AH,
-                target_moon_bin=mb,
-                frac=frac,
-            )
-            ap_p_list = build_apuestas_primitiva(
-                weekly_nums_rank=s_nums,
-                weekly_re_rank=s_re,
-                global_nums_rank=global_p_nums,
-                global_re_rank=global_p_re,
-            )
-            if ap_p_list:
-                used_frac = frac
-                break
-
-        if not ap_p_list:
-            # fallback “puro global”
-            ap_p_list = build_apuestas_primitiva(
-                weekly_nums_rank={},
-                weekly_re_rank={},
-                global_nums_rank=global_p_nums,
-                global_re_rank=global_p_re,
-            )
-            used_frac = tol_options[-1]
-
-        if ap_p_list:
-            apuestas_primitiva.append((d, ap_p_list[0]))  # 1 apuesta por sorteo
-            tol_p_used = used_frac if tol_p_used is None else max(tol_p_used, used_frac)
+    apuestas_primitiva, tol_p_used = _compute_primitiva_for_dates(
+        dates=prim_dates,
+        hist_p=hist_p,
+        fc_map=fc_madrid,
+        tol_options=tol_options,
+        global_nums_rank=global_p_nums,
+        global_re_rank=global_p_re,
+    )
 
     # Euromillones (Paris) - por fecha
 
-    apuestas_euromillones: list[tuple[date, Apuesta_Euromillones]] = []
-    tol_e_used: float = tol_options[0] if euro_dates else None  # type: ignore[assignment]
+    apuestas_euromillones, tol_e_used = _compute_euro_for_dates(
+        dates=euro_dates,
+        hist_e=hist_e,
+        fc_map=fc_paris,
+        tol_options=tol_options,
+        global_nums_rank=global_e_nums,
+        global_stars_rank=global_e_stars,
+    )
 
-    for d in euro_dates:
-        T, RH, AH, mb = target_context_for_date(
-            d=d,
-            fc_map=fc_paris,
-        )
-        ap_e_list: list[Apuesta_Euromillones] = []
-        used_frac = tol_options[-1]
-
-        for frac in tol_options:
-            s_nums, s_st = score_euro_for_target(
-                hist_e,
-                target_temp=T, target_rh=RH, target_ah=AH,
-                target_moon_bin=mb,
-                frac=frac,
-            )
-            ap_e_list = build_apuestas_euromillones(
-                weekly_nums_rank=s_nums,
-                weekly_stars_rank=s_st,
-                global_nums_rank=global_e_nums,
-                global_stars_rank=global_e_stars,
-            )
-            if ap_e_list:
-                used_frac = frac
-                break
-
-        if not ap_e_list:
-            ap_e_list = build_apuestas_euromillones(
-                weekly_nums_rank={},
-                weekly_stars_rank={},
-                global_nums_rank=global_e_nums,
-                global_stars_rank=global_e_stars,
-            )
-            used_frac = tol_options[-1]
-
-        if ap_e_list:
-            apuestas_euromillones.append((d, ap_e_list[0]))
-            tol_e_used = used_frac if tol_e_used is None else max(tol_e_used, used_frac)
     week_start, week_end = _start_end_week_window(today)
 
     return WeeklyResult(
