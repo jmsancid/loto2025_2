@@ -1,10 +1,28 @@
 """
-API pública para la clasificación semanal y la generación de apuestas.
-La implementación interna se realiza en other_utils.weekly.*
+LEGACY compatibility module.
+
+Do not add new code here. Use `other_utils.weekly` instead.
 """
 
 from __future__ import annotations
+import warnings
 
-from other_utils.weekly.types import WeeklyResult
-from other_utils.weekly.format import format_weekly_result  # Se importa aquí, pero se usa en main
-from other_utils.weekly.engine import compute_weekly_apuestas  # Se importa aquí, pero se usa en main
+from other_utils.weekly import compute_weekly_apuestas as _compute, format_weekly_result as _format
+
+def compute_weekly_apuestas(*args, **kwargs):
+    warnings.warn(
+        "other_utils.ranking_semanal is legacy; use other_utils.weekly.generate_weekly instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return _compute(*args, **kwargs)
+
+def format_weekly_result(*args, **kwargs):
+    warnings.warn(
+        "other_utils.ranking_semanal is legacy; use other_utils.weekly.format_weekly instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return _format(*args, **kwargs)
+
+__all__ = ["compute_weekly_apuestas", "format_weekly_result"]
