@@ -13,9 +13,9 @@ from other_utils.humidity_meteostat import get_daily_atmospheric_state, City
 
 from db_utils.santi_rows import santi_primitiva_row, santi_euromillones_row
 
-
 if TYPE_CHECKING:
-    from other_utils.ranking_semanal import Apuesta_Primitiva, Apuesta_Euromillones
+    from other_utils.weekly.types import (Apuesta_Primitiva,
+                                          Apuesta_Euromillones)
 
 
 @dataclass(frozen=True)
