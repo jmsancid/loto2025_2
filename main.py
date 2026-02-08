@@ -9,9 +9,8 @@ from constants import PRIMITIVA, EUROMILLONES
 from other_utils.file_utils import need_db_update, actualizacion_db, check_results_db_file
 
 from db_utils.db_management import DBManager
-from other_utils.ranking_semanal import compute_weekly_apuestas, format_weekly_result
-# from other_utils.weekly.format import format_weekly_result
-
+from other_utils.weekly import generate_weekly, format_weekly
+# from other_utils.ranking_semanal import compute_weekly_apuestas, format_weekly_result
 
 
 def _today():
@@ -59,7 +58,7 @@ def main():
     with loto_db as db:
         db.sync_sorteo_influencers()
 
-    apuestas_semanales = compute_weekly_apuestas(db=loto_db,
+    apuestas_semanales = generate_weekly(db=loto_db,
         today=_today()
     )
 
@@ -69,7 +68,7 @@ def main():
     tol_e = apuestas_semanales.tol_euro
 
     print("===WEEKLY_RESULT_BEGIN===")
-    print(format_weekly_result(apuestas_semanales))
+    print(format_weekly(apuestas_semanales))
     print("===WEEKLY_RESULT_END===")
 
     with loto_db as db:
