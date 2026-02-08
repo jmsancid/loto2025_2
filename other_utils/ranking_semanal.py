@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import os
-import json
-from pathlib import Path
 import logging
 from dataclasses import dataclass
 from datetime import datetime, date, timedelta, time
@@ -11,11 +8,10 @@ from typing import Iterable, Optional, Any
 
 from db_utils.db_management import DBManager
 from other_utils.fase_lunar import obtener_valor_fase_lunar
-from other_utils.prevision_temp_hr import fetch_hourly_temp_rh, daily_window_means_from_hourly, calc_abs_humidity
+from other_utils.weekly.forecast import forecast_map_for_city, calc_abs_humidity
 from other_utils.humidity_meteostat import CITY
-from other_utils.weekly.format import format_weekly_result
 from other_utils.weekly.types import Apuesta_Primitiva, Apuesta_Euromillones, WeeklyResult
-
+from other_utils.weekly.format import format_weekly_result  # Se importa aquí, pero se usa en main
 
 # -----------------------------
 # Logging
@@ -65,11 +61,14 @@ def gauss_score(delta: float, tol: float) -> float:
     z = delta / tol
     return math.exp(-(z * z))
 
+
 def tol_temp(target_temp: float, frac: float) -> float:
     return max(1.5, frac * abs(target_temp))
 
+
 def tol_rh(target_rh: float, frac: float) -> float:
     return max(5.0, frac * target_rh)
+
 
 def tol_ah(target_ah: float, frac: float) -> float:
     # Ajusta el mínimo si tu AH está en otra unidad. Con g/m³ suele ir bien.
@@ -100,6 +99,7 @@ def _start_end_week_window(today: date) -> tuple[date, date]:
     end = start + timedelta(days=(5 - start.weekday()))
     return start, end
 
+
 def pending_draw_dates(today: date) -> dict[str, list[date]]:
     """
     Devuelve fechas de sorteos pendientes en la semana objetivo.
@@ -108,7 +108,7 @@ def pending_draw_dates(today: date) -> dict[str, list[date]]:
     start, end = _start_end_week_window(today)
 
     primitiva_days = {0, 3, 5}  # Mon, Thu, Sat
-    euro_days = {1, 4}          # Tue, Fri
+    euro_days = {1, 4}  # Tue, Fri
 
     primitiva: list[date] = []
     euro: list[date] = []
@@ -137,6 +137,7 @@ class HistRowPrimitiva:
     ah: float
     moon_val: float
 
+
 @dataclass(frozen=True)
 class HistRowEuro:
     n: tuple[int, int, int, int, int]
@@ -158,18 +159,20 @@ def global_rank_counts(values: Iterable[int]) -> dict[int, float]:
         counts[v] = counts.get(v, 0.0) + 1.0
     return counts
 
+
 def sort_score_dict(d: dict[int, float]) -> dict[int, float]:
     """Devuelve dict ordenado por score desc (inserción ya ordenada)."""
     return dict(sorted(d.items(), key=lambda kv: kv[1], reverse=True))
 
+
 def score_primitiva_for_target(
-    history: list[HistRowPrimitiva],
-    *,
-    target_temp: float,
-    target_rh: float,
-    target_ah: float,
-    target_moon_bin: int,
-    frac: float,
+        history: list[HistRowPrimitiva],
+        *,
+        target_temp: float,
+        target_rh: float,
+        target_ah: float,
+        target_moon_bin: int,
+        frac: float,
 ) -> tuple[dict[int, float], dict[int, float]]:
     """
     Devuelve (score_numeros, score_reintegro) para un target (un sorteo futuro).
@@ -187,9 +190,9 @@ def score_primitiva_for_target(
             continue
 
         score_row = (
-            gauss_score(row.temp - target_temp, tT) *
-            gauss_score(row.rh - target_rh, tRH) *
-            gauss_score(row.ah - target_ah, tAH)
+                gauss_score(row.temp - target_temp, tT) *
+                gauss_score(row.rh - target_rh, tRH) *
+                gauss_score(row.ah - target_ah, tAH)
         )
 
         if score_row <= 0.0:
@@ -203,14 +206,15 @@ def score_primitiva_for_target(
 
     return sort_score_dict(s_nums), sort_score_dict(s_re)
 
+
 def score_euro_for_target(
-    history: list[HistRowEuro],
-    *,
-    target_temp: float,
-    target_rh: float,
-    target_ah: float,
-    target_moon_bin: int,
-    frac: float,
+        history: list[HistRowEuro],
+        *,
+        target_temp: float,
+        target_rh: float,
+        target_ah: float,
+        target_moon_bin: int,
+        frac: float,
 ) -> tuple[dict[int, float], dict[int, float]]:
     """
     Devuelve (score_numeros, score_estrellas) para un target (un sorteo futuro).
@@ -227,9 +231,9 @@ def score_euro_for_target(
             continue
 
         score_row = (
-            gauss_score(row.temp - target_temp, tT) *
-            gauss_score(row.rh - target_rh, tRH) *
-            gauss_score(row.ah - target_ah, tAH)
+                gauss_score(row.temp - target_temp, tT) *
+                gauss_score(row.rh - target_rh, tRH) *
+                gauss_score(row.ah - target_ah, tAH)
         )
 
         if score_row <= 0.0:
@@ -256,11 +260,11 @@ def merge_scores_sum(dicts: list[dict[int, float]]) -> dict[int, float]:
 # -----------------------------
 
 def select_top_unique(
-    primary_rank: dict[int, float],
-    fallback_rank: dict[int, float],
-    *,
-    needed: int,
-    exclude: set[int] | None = None,
+        primary_rank: dict[int, float],
+        fallback_rank: dict[int, float],
+        *,
+        needed: int,
+        exclude: set[int] | None = None,
 ) -> list[int]:
     """
     Selecciona `needed` candidatos únicos:
@@ -294,10 +298,10 @@ def select_top_unique(
 # -----------------------------
 
 def build_apuestas_primitiva(
-    weekly_nums_rank: dict[int, float],
-    weekly_re_rank: dict[int, float],
-    global_nums_rank: dict[int, float],
-    global_re_rank: dict[int, float],
+        weekly_nums_rank: dict[int, float],
+        weekly_re_rank: dict[int, float],
+        global_nums_rank: dict[int, float],
+        global_re_rank: dict[int, float],
 ) -> list[Apuesta_Primitiva]:
     # cada apuesta consume 30 números únicos
     apuestas: list[Apuesta_Primitiva] = []
@@ -324,18 +328,19 @@ def build_apuestas_primitiva(
         # repartir en 5 combinaciones de 6
         combs: list[tuple[int, int, int, int, int, int]] = []
         for i in range(0, 30, 6):
-            block = sorted(nums[i:i+6])
+            block = sorted(nums[i:i + 6])
             combs.append(tuple(block))  # type: ignore[arg-type]
 
         apuestas.append(Apuesta_Primitiva(combinaciones=tuple(combs), reintegro=reintegro))
 
     return apuestas
 
+
 def build_apuestas_euromillones(
-    weekly_nums_rank: dict[int, float],
-    weekly_stars_rank: dict[int, float],
-    global_nums_rank: dict[int, float],
-    global_stars_rank: dict[int, float],
+        weekly_nums_rank: dict[int, float],
+        weekly_stars_rank: dict[int, float],
+        global_nums_rank: dict[int, float],
+        global_stars_rank: dict[int, float],
 ) -> list[Apuesta_Euromillones]:
     # cada apuesta consume 10 números y 4 estrellas únicas
     apuestas: list[Apuesta_Euromillones] = []
@@ -353,9 +358,9 @@ def build_apuestas_euromillones(
 
         combs = []
         for i in range(0, 10, 5):
-            n_block = tuple(sorted(nums[i:i+5]))  # 5 nums
+            n_block = tuple(sorted(nums[i:i + 5]))  # 5 nums
             # estrellas: 2 por combinación
-            s_block = tuple(sorted(stars[(i//5)*2:(i//5)*2 + 2]))  # 2 stars
+            s_block = tuple(sorted(stars[(i // 5) * 2:(i // 5) * 2 + 2]))  # 2 stars
             combs.append((n_block, s_block))
 
         apuestas.append(Apuesta_Euromillones(combinaciones=tuple(combs)))
@@ -368,42 +373,10 @@ def build_apuestas_euromillones(
 # -----------------------------
 
 
-def forecast_map_for_city(
-    citycfg,
-    *,
-    window_days: int = 7,
-    start_hour: int = 18,
-    end_hour: int = 23,
-) -> dict[date, Any]:
-    """
-    Devuelve un dict: date -> DailyWindowMean
-    """
-    fixture_dir = os.environ.get("SANTILOTO_FORECAST_FIXTURE_DIR")
-    if fixture_dir:
-        # Usamos key estable ("madrid", "paris") para el nombre del fixture
-        p = Path(fixture_dir) / f"{citycfg.key}.json"
-        if p.exists():
-            hourly = json.loads(p.read_text(encoding="utf-8"))
-        else:
-            hourly = fetch_hourly_temp_rh(citycfg, days=window_days)
-    else:
-        hourly = fetch_hourly_temp_rh(citycfg, days=window_days)
-
-    daily = daily_window_means_from_hourly(
-        time=hourly["time"],
-        temperature_2m=hourly["temperature_2m"],
-        relative_humidity_2m=hourly["relative_humidity_2m"],
-        start_hour=start_hour,
-        end_hour=end_hour,
-    )
-
-    return {date.fromisoformat(d.date): d for d in daily}
-
-
 def target_context_for_date(
-    *,
-    d: date,
-    fc_map: dict[date, Any],
+        *,
+        d: date,
+        fc_map: dict[date, Any],
 ) -> tuple[float, float, float, int]:
     """
     Devuelve (T, RH, AH, moon_bin) para una fecha objetivo.
@@ -425,13 +398,13 @@ def target_context_for_date(
 
 
 def _compute_primitiva_for_dates(
-    *,
-    dates: list[date],
-    hist_p,
-    fc_map,
-    tol_options: tuple[float, float],
-    global_nums_rank: dict,
-    global_re_rank: dict,
+        *,
+        dates: list[date],
+        hist_p,
+        fc_map,
+        tol_options: tuple[float, float],
+        global_nums_rank: dict,
+        global_re_rank: dict,
 ) -> tuple[list[tuple[date, Apuesta_Primitiva]], Optional[float]]:
     apuestas: list[tuple[date, Apuesta_Primitiva]] = []
     tol_used: Optional[float] = tol_options[0] if dates else None
@@ -476,13 +449,13 @@ def _compute_primitiva_for_dates(
 
 
 def _compute_euro_for_dates(
-    *,
-    dates: list[date],
-    hist_e,
-    fc_map,
-    tol_options: tuple[float, float],
-    global_nums_rank: dict,
-    global_stars_rank: dict,
+        *,
+        dates: list[date],
+        hist_e,
+        fc_map,
+        tol_options: tuple[float, float],
+        global_nums_rank: dict,
+        global_stars_rank: dict,
 ) -> tuple[list[tuple[date, Apuesta_Euromillones]], Optional[float]]:
     apuestas: list[tuple[date, Apuesta_Euromillones]] = []
     tol_used: Optional[float] = tol_options[0] if dates else None
@@ -527,9 +500,9 @@ def _compute_euro_for_dates(
 
 
 def _future_pending_dates(
-    *,
-    db: DBManager,
-    today: date,
+        *,
+        db: DBManager,
+        today: date,
 ) -> tuple[list[date], list[date]]:
     """
     Devuelve (prim_dates, euro_dates) futuras pendientes,
@@ -572,9 +545,9 @@ def _forecast_maps() -> tuple[dict, dict]:
 
 
 def compute_weekly_apuestas(
-    *,
-    db: DBManager,
-    today: date
+        *,
+        db: DBManager,
+        today: date
 ) -> WeeklyResult:
     """
     Calcula apuestas semanales para sorteos pendientes:
@@ -641,6 +614,3 @@ def compute_weekly_apuestas(
         tol_euro=tol_e_used if euro_dates else None,
         method_version="v1",
     )
-
-
-
