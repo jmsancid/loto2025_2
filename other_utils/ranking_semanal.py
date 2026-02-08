@@ -1,3 +1,8 @@
+"""
+API pública para la clasificación semanal y la generación de apuestas.
+La implementación interna se realiza en other_utils.weekly.*
+"""
+
 from __future__ import annotations
 
 from other_utils.weekly.types import WeeklyResult

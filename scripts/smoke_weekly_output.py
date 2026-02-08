@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 import hashlib
 import subprocess
 import sys
@@ -17,6 +18,8 @@ def extract_block(stdout: str) -> str:
     return block.strip("\n").strip()
 
 def main() -> int:
+    os.environ["SANTILOTO_TODAY"] = "2026-02-07"
+    os.environ["SANTILOTO_FREEZE_FORECAST"] = "1"
     p = subprocess.run([sys.executable, "main.py"], capture_output=True, text=True)
     out = p.stdout or ""
     err = p.stderr or ""
