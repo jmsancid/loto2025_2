@@ -1,3 +1,12 @@
+"""
+Comandos bash para probar los cambios en la aplicación (ejecutar desde el repo)
+
+export SANTILOTO_TODAY=2026-02-07
+export SANTILOTO_FORECAST_FIXTURE_DIR=tests/fixtures/forecast
+uv run python scripts/smoke_weekly_output.py
+
+"""
+
 from __future__ import annotations
 import os
 import hashlib

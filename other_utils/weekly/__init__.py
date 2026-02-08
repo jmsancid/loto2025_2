@@ -13,6 +13,10 @@ Public (stable):
 Compat (temporary aliases, will be deprecated):
 - compute_weekly_apuestas
 - format_weekly_result
+
+Nota:
+- Esta implementación requiere un objeto db, compatible con la base de datos interna DBManager.
+Ese tipo de DB no forma parte de la API pública y puede cambiar.
 """
 
 from __future__ import annotations
