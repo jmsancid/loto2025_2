@@ -7,12 +7,15 @@ requires-python = ">=3.11"
 dependencies = [
   "astral>=3.2",
   "beautifulsoup4>=4.14",
+  "fastapi>=0.128.5",
   "lxml>=6.0",
   "numpy>=2.0",
   "pandas>=2.3",
+  "pydantic>=2.12.5",
   "python-dateutil>=2.9",
   "pytz",
   "requests>=2.32",
+  "uvicorn[standard]>=0.40.0",
 ]
 
 [project.optional-dependencies]

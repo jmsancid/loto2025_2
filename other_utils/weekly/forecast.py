@@ -1,11 +1,15 @@
-# weather_forecast.py
 from __future__ import annotations
 
+from typing import Any, Iterable, TypedDict
+import os
+import json
+from pathlib import Path
+from datetime import datetime, date
 from dataclasses import dataclass
-from typing import Literal, Iterable, TypedDict
 import requests
-from datetime import datetime
 from math import exp
+
+# from other_utils.prevision_temp_hr import fetch_hourly_temp_rh, daily_window_means_from_hourly, calc_abs_humidity
 
 from other_utils.humidity_meteostat import CityCfg  #, CITY
 
@@ -148,3 +152,36 @@ def calc_abs_humidity(temp_c: float, rh_pct: float) -> float:
     es = 6.112 * exp((17.67 * temp_c) / (temp_c + 243.5))
     e = (rh_pct / 100.0) * es
     return 216.7 * e / (temp_c + 273.15)
+
+
+def forecast_map_for_city(
+    citycfg,
+    *,
+    window_days: int = 7,
+    start_hour: int = 18,
+    end_hour: int = 23,
+) -> dict[date, Any]:
+    """
+    Devuelve un dict: date -> DailyWindowMean
+    """
+    fixture_dir = os.environ.get("SANTILOTO_FORECAST_FIXTURE_DIR")
+    if fixture_dir:
+        # Usamos key estable ("madrid", "paris") para el nombre del fixture
+        p = Path(fixture_dir) / f"{citycfg.key}.json"
+        if p.exists():
+            hourly = json.loads(p.read_text(encoding="utf-8"))
+        else:
+            hourly = fetch_hourly_temp_rh(citycfg, days=window_days)
+    else:
+        hourly = fetch_hourly_temp_rh(citycfg, days=window_days)
+
+    daily = daily_window_means_from_hourly(
+        time=hourly["time"],
+        temperature_2m=hourly["temperature_2m"],
+        relative_humidity_2m=hourly["relative_humidity_2m"],
+        start_hour=start_hour,
+        end_hour=end_hour,
+    )
+
+    return {date.fromisoformat(d.date): d for d in daily}
+

@@ -3,12 +3,21 @@
 
 
 from datetime import date
+import logging
 
 from constants import PRIMITIVA, EUROMILLONES
 from other_utils.file_utils import need_db_update, actualizacion_db, check_results_db_file
 
 from db_utils.db_management import DBManager
-from other_utils.ranking_semanal import compute_weekly_apuestas, format_weekly_result
+from other_utils.weekly import generate_weekly, format_weekly
+# from other_utils.ranking_semanal import compute_weekly_apuestas, format_weekly_result
+
+
+def _today():
+    import os
+    if "SANTILOTO_TODAY" in os.environ:
+        return date.fromisoformat(os.environ["SANTILOTO_TODAY"])
+    return date.today()
 
 
 def main():
@@ -16,6 +25,8 @@ def main():
     Programa para preparar combinaciones de primitiva y euromillones
     :return: 0 si Todo es correcto
     """
+
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(name)s:%(message)s")
 
     # Compruebo si es necesario actualizar la base de datos de Primitivas y Euromillones
 
@@ -47,8 +58,8 @@ def main():
     with loto_db as db:
         db.sync_sorteo_influencers()
 
-    apuestas_semanales = compute_weekly_apuestas(db=loto_db,
-        today=date.today()
+    apuestas_semanales = generate_weekly(db=loto_db,
+        today=_today()
     )
 
     week_start = apuestas_semanales.week_start
@@ -56,7 +67,9 @@ def main():
     tol_p = apuestas_semanales.tol_primitiva
     tol_e = apuestas_semanales.tol_euro
 
-    print(format_weekly_result(apuestas_semanales))
+    print("===WEEKLY_RESULT_BEGIN===")
+    print(format_weekly(apuestas_semanales))
+    print("===WEEKLY_RESULT_END===")
 
     with loto_db as db:
         # weekly ya calculado
